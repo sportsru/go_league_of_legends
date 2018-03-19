@@ -64,7 +64,7 @@ func (c *Client) GetSummonerByName(name string) (Summoner, error) {
     return res, nil
 }
 
-func (c *Client) GetMatchLists(name string) (MatchLists, error) {
+func (c *Client) GetMatchListsByAccount(name string, beginIndex int) (MatchLists, error) {
     var (
         res  MatchLists
         url  string
@@ -72,7 +72,7 @@ func (c *Client) GetMatchLists(name string) (MatchLists, error) {
         body []byte
     )
 
-    url = fmt.Sprintf("https://%s%s%s%s?api_key=%s", c.platform, baseUrl, urlMatchLists, name, c.token)
+    url = fmt.Sprintf("https://%s%s%s%s?api_key=%s&beginIndex=%s", c.platform, baseUrl, urlMatchLists, name, c.token, beginIndex)
 
     if body, err = c.getUrl(url); err != nil {
         return MatchLists{}, err
