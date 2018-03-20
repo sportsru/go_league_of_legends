@@ -17,12 +17,10 @@ const (
 
 type Client struct {
     token    string
-    platform string
 }
 
-func (c *Client) Init(token string, platform string) {
+func (c *Client) Init(token string) {
     c.token = token
-    c.platform = platform
 }
 
 func (c *Client) getUrl(url string) ([]byte, error) {
