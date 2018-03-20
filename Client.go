@@ -10,9 +10,9 @@ import (
 
 // add prefix
 const (
-    baseUrl           = ".api.riotgames.com/lol/"
-    urlSummonerByName = "summoner/v3/summoners/by-name/"
-    urlMatchLists     = "match/v3/matchlists"
+    baseUrl                = ".api.riotgames.com/lol/"
+    urlSummonerByName      = "summoner/v3/summoners/by-name/"
+    urlMatchListsByAccount = "match/v3/matchlists/by-account/"
 )
 
 type Client struct {
@@ -43,7 +43,7 @@ func (c *Client) getUrl(url string) ([]byte, error) {
     return body, nil
 }
 
-func (c *Client) GetSummonerByName(name string) (Summoner, error) {
+func (c *Client) GetSummonerByName(platform string, name string) (Summoner, error) {
     var (
         res  Summoner
         url  string
@@ -51,7 +51,7 @@ func (c *Client) GetSummonerByName(name string) (Summoner, error) {
         body []byte
     )
 
-    url = fmt.Sprintf("https://%s%s%s%s?api_key=%s", c.platform, baseUrl, urlSummonerByName, name, c.token)
+    url = fmt.Sprintf("https://%s%s%s%s?api_key=%s", platform, baseUrl, urlSummonerByName, name, c.token)
 
     if body, err = c.getUrl(url); err != nil {
         return Summoner{}, err
@@ -64,7 +64,7 @@ func (c *Client) GetSummonerByName(name string) (Summoner, error) {
     return res, nil
 }
 
-func (c *Client) GetMatchListsByAccount(name string, beginIndex int) (MatchLists, error) {
+func (c *Client) GetMatchListsByAccount(platform string, playerId int, beginIndex int) (MatchLists, error) {
     var (
         res  MatchLists
         url  string
@@ -72,8 +72,8 @@ func (c *Client) GetMatchListsByAccount(name string, beginIndex int) (MatchLists
         body []byte
     )
 
-    url = fmt.Sprintf("https://%s%s%s%s?api_key=%s&beginIndex=%s", c.platform, baseUrl, urlMatchLists, name, c.token, beginIndex)
-
+    url = fmt.Sprintf("https://%s%s%s%d?api_key=%s&beginIndex=%d", platform, baseUrl, urlMatchListsByAccount, playerId, c.token, beginIndex)
+    
     if body, err = c.getUrl(url); err != nil {
         return MatchLists{}, err
     }
