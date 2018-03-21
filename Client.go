@@ -13,6 +13,7 @@ const (
     baseUrl                = ".api.riotgames.com/lol/"
     urlSummonerByName      = "summoner/v3/summoners/by-name/"
     urlMatchListsByAccount = "match/v3/matchlists/by-account/"
+    urlMatchById = "match/v3/matches/"
 )
 
 type Client struct {
@@ -78,6 +79,27 @@ func (c *Client) GetMatchListsByAccount(platform string, playerId int, beginInde
 
     if err = json.Unmarshal(body, &res); err != nil {
         return MatchLists{}, err
+    }
+
+    return res, nil
+}
+
+func (c *Client) GetMatchById(platform string, matchId int) (MatchInfo, error) {
+    var (
+        res  MatchInfo
+        url  string
+        err  error
+        body []byte
+    )
+
+    url = fmt.Sprintf("https://%s%s%s%d?api_key=%s", platform, baseUrl, urlMatchById, matchId, c.token)
+
+    if body, err = c.getUrl(url); err != nil {
+        return MatchInfo{}, err
+    }
+
+    if err = json.Unmarshal(body, &res); err != nil {
+        return MatchInfo{}, err
     }
 
     return res, nil
