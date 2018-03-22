@@ -7,14 +7,14 @@ type MatchTeam struct {
 	FirstTower           bool        `json:"firstTower"`
 	FirstInhibitor       bool        `json:"firstInhibitor"`
 	FirstBaron           bool        `json:"firstBaron"`
-	FirstDragon          bool        `json:"firstDragon"`
-	FirstRiftHerald      bool        `json:"firstRiftHerald"`
-	TowerKills           int         `json:"towerKills"`
-	InhibitorKills       int         `json:"inhibitorKills"`
-	BaronKills           int         `json:"baronKills"`
-	DragonKills          int         `json:"dragonKills"`
-	VilemawKills         int         `json:"vilemawKills"`
-	RiftHeraldKills      int         `json:"riftHeraldKills"`
-	DominionVictoryScore int         `json:"dominionVictoryScore"`
-	Bans                 []MatchBans `json:"bans"`
+	FirstDragon          bool       `json:"firstDragon"`
+	FirstRiftHerald      bool       `json:"firstRiftHerald"`
+	TowerKills           int        `json:"towerKills"`
+	InhibitorKills       int        `json:"inhibitorKills"`
+	BaronKills           int        `json:"baronKills"`
+	DragonKills          int        `json:"dragonKills"`
+	VilemawKills         int        `json:"vilemawKills"`
+	RiftHeraldKills      int        `json:"riftHeraldKills"`
+	DominionVictoryScore int        `json:"dominionVictoryScore"`
+	Bans                 []MatchBan `json:"bans"`
 }
